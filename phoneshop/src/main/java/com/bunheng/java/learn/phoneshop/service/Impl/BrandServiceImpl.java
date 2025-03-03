@@ -43,8 +43,6 @@ public class BrandServiceImpl implements BrandService{
        return brandRepository.save(brand) ;
     }
 
-   
-
     @Override
     public List<Brand> filterBrand(String name) {
        return brandRepository.findByNameContainingIgnoreCase(name);
@@ -94,7 +92,7 @@ public class BrandServiceImpl implements BrandService{
             brandFilter.setId(Integer.parseInt(id));
         }
 
-        int pageLimit = 1 ;
+        int pageLimit = 2 ;
         if (params.containsKey(PageUtil.PAGE_LIMIT)){
             pageLimit = Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
         }

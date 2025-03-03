@@ -14,7 +14,6 @@ public interface BrandRepository extends JpaRepository<Brand , Integer>
 , JpaSpecificationExecutor<Brand> 
 {  
     //JpaRepository It automatically generates SQL queries like: SELECT * FROM brands WHERE id = 1;
-
     List <Brand> findByNameContainingIgnoreCase(String name) ;
 
 }
