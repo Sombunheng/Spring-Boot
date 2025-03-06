@@ -11,11 +11,12 @@ public interface BrandService {
         Brand create(Brand brand); // Method defined in interface
         Brand getById (Integer id);
         Brand update(Integer id , Brand brandUpdated);
-        // Brand delete(Integer id );
         Page<Brand> getbBrands(Map <String , String> params);
 
         // List<Brand> getbBrands(Map <String , String> params);
 
         List<Brand> filterBrand(String name);
+
+        void delete(Integer id);
 
 }

@@ -111,6 +111,12 @@ public class BrandServiceImpl implements BrandService{
         return page ;
     }
 
-    
+    @Override
+    public void delete(Integer id) {
+        if (!brandRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Brand", id) ;
+        }
+        brandRepository.deleteById(id); // Deletes the brand with the given ID
 
+    }
 }
