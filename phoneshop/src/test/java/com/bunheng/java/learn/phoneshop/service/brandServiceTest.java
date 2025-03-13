@@ -48,28 +48,28 @@ public class brandServiceTest {
         // Given: A valid brand exists in the repository
         Brand brand = new Brand();
         brand.setName("Apple");
-        brand.setId(1);
+        brand.setId(1L);
 
         brandRepository.save(brand);
 
-        when(brandRepository.findById(1)).thenReturn(Optional.of(brand));
+        when(brandRepository.findById(1L)).thenReturn(Optional.of(brand));
         
         // When: getById is called
-        Brand brands = brandService.getById(1) ; 
+        Brand brands = brandService.getById(1L) ; 
 
         // Then: It should return the expected brand
         assertEquals(1, brands.getId());
         assertEquals("Apple", brands.getName());
 
         // Verify that the repository was called once
-        verify(brandRepository, times(1)).findById(1);
+        verify(brandRepository, times(1)).findById(1L);
 
 
     }
 
     public void testGetByIdThrow(){
        // Given: No brand exists with the given ID
-        Integer id = 100;
+        Long id = (long) 100;
         when(brandRepository.findById(id)).thenReturn(Optional.empty());
 
         // When & Then: It should throw ResourceNotFoundException
@@ -87,7 +87,7 @@ public class brandServiceTest {
      @Test
     void testUpdate_Success() {
         // Given: A brand exists with ID 1
-        Integer id = 1;
+        Long id = (long) 1;
         Brand existingBrand = new Brand();
         existingBrand.setId(id);
         existingBrand.setName("Nike");
@@ -116,7 +116,7 @@ public class brandServiceTest {
      @Test
     void testUpdate_BrandNotFound() {
         // Given: No brand exists with the given ID
-        Integer id = 100;
+        Long id = (long) 100;
         Brand updatedBrand = new Brand();
         updatedBrand.setName("Adidas");
 

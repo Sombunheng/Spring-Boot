@@ -1,17 +1,15 @@
 package com.bunheng.java.learn.phoneshop.repository;
 
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.bunheng.java.learn.phoneshop.entity.Model;
+import com.bunheng.java.learn.phoneshop.entity.Color;
 
 @Repository
-public interface ModelRepository extends JpaRepository <Model , Long> 
-,JpaSpecificationExecutor<Model>  
+public interface ColorRepository extends JpaRepository <Color , Long>
+, JpaSpecificationExecutor<Color> 
 {
-    List<Model> findByBrandId(Long brandId);
-
+    
 }

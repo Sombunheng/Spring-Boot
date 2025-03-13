@@ -13,8 +13,8 @@ import com.bunheng.java.learn.phoneshop.exception.ResourceNotFoundException;
 import com.bunheng.java.learn.phoneshop.repository.BrandRepository;
 import com.bunheng.java.learn.phoneshop.service.BrandService;
 import com.bunheng.java.learn.phoneshop.service.util.PageUtil;
-import com.bunheng.java.learn.phoneshop.specification.BrandFilter;
-import com.bunheng.java.learn.phoneshop.specification.BrandSpecification;
+import com.bunheng.java.learn.phoneshop.specification.brand.BrandFilter;
+import com.bunheng.java.learn.phoneshop.specification.brand.BrandSpecification;
 
 
 @Service
@@ -31,13 +31,13 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
-    public Brand getById(Integer id) {
+    public Brand getById(Long id) {
         return brandRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Brand", id)) ;
+                            .orElseThrow(() -> new ResourceNotFoundException("Brand", id)) ;
     }
 
     @Override
-    public Brand update(Integer id, Brand brandUpdated) {
+    public Brand update(Long id, Brand brandUpdated) {
         Brand brand = getById(id);
         brand.setName(brandUpdated.getName());
        return brandRepository.save(brand) ;
@@ -47,36 +47,6 @@ public class BrandServiceImpl implements BrandService{
     public List<Brand> filterBrand(String name) {
        return brandRepository.findByNameContainingIgnoreCase(name);
     }
-
-    // @Override
-    // public List<Brand> getbBrands(Map<String, String> params) {
-    //     BrandFilter brandFilter = new BrandFilter();
-        
-    //     if (params.containsKey("name")){
-    //         String name = params.get("name");
-    //         brandFilter.setName(name);
-    //     }
-    //     if (params.containsKey("id")){
-    //         String id = params.get("id");
-    //         brandFilter.setId(Integer.parseInt(id));
-    //     }
-
-    //     int pageLimit = 1 ;
-    //     if (params.containsKey(PageUtil.PAGE_LIMIT)){
-    //         pageLimit = Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
-    //     }
-
-    //     int pageNumber = 1 ;
-    //     if (params.containsKey(PageUtil.PAGE_NUMBER)){
-    //         pageNumber = Integer.parseInt(params.get(PageUtil.PAGE_NUMBER));
-    //     }
-        
-    //     BrandSpecification brandSpecification = new BrandSpecification(brandFilter);
-
-    //     PageRequest pageable = PageUtil.getPageable(pageLimit, pageNumber);
-
-    //     return brandRepository.findAll(brandSpecification);
-    // }
 
 
     @Override
@@ -89,7 +59,7 @@ public class BrandServiceImpl implements BrandService{
         }
         if (params.containsKey("id")){
             String id = params.get("id");
-            brandFilter.setId(Integer.parseInt(id));
+            brandFilter.setId(Long.parseLong(id));
         }
 
         int pageLimit = 2 ;
@@ -112,7 +82,7 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(Long id) {
         if (!brandRepository.existsById(id)) {
             throw new ResourceNotFoundException("Brand", id) ;
         }

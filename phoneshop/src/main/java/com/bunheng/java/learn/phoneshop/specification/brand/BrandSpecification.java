@@ -1,4 +1,4 @@
-package com.bunheng.java.learn.phoneshop.specification;
+package com.bunheng.java.learn.phoneshop.specification.brand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,9 @@ public class BrandSpecification implements Specification<Brand> {
 
     private final BrandFilter brandFilter ; 
 
-    List < Predicate > predicates = new ArrayList<>();
-
+    public BrandSpecification(BrandFilter brandFilter) {
+        this.brandFilter = brandFilter;
+    }
     // @Override
     // public Predicate toPredicate(Root<Brand> brand, CriteriaQuery<?> query, CriteriaBuilder cb) {
     //    if (brandFilter.getName() !=null){
@@ -35,21 +36,22 @@ public class BrandSpecification implements Specification<Brand> {
     //    return cb.and(predicates.toArray(Predicate[] ::new ));
     // }
 
-    
-
     @Override
     public Predicate toPredicate(Root<Brand> brand, CriteriaQuery<?> query, CriteriaBuilder cb) {
-       if (brandFilter.getName() != null){
-        // Predicate is SQL query 
-        Predicate name = cb.like(cb.upper(brand.get("name")) , "%" + brandFilter.getName().toUpperCase() + "%") ; 
-            predicates.add(name);
-       }
+        List<Predicate> predicates = new ArrayList<>();
 
-       if (brandFilter.getId() != null){
-        Predicate id = brand.get("id").in(brandFilter.getId());
-        predicates.add(id);
+        // JOIN FETCH models to retrieve brands with their models
+        
+        if (brandFilter.getName() != null && !brandFilter.getName().isEmpty()) {
+            predicates.add(cb.like(cb.upper(brand.get("name")), "%" + brandFilter.getName().toUpperCase() + "%"));
         }
-        return cb.and(predicates.toArray(Predicate[]:: new));
+
+        if (brandFilter.getId() != null) {
+            predicates.add(cb.equal(brand.get("id"), brandFilter.getId()));
+        }
+
+        return cb.and(predicates.toArray(new Predicate[0]));
     }
+
     
 }

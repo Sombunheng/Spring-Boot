@@ -13,6 +13,10 @@ spring:
       hibernate:
         format_sql: true  # Optional: To pretty-print the SQL for readability
         use_sql_comments: true  # Optional: To include SQL comments in logs
+        
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    enabled: false
 
 # -----------------------------------------------------------------
 # --- H2 database ---

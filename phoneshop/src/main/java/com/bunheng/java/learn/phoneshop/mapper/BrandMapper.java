@@ -6,7 +6,7 @@ import org.mapstruct.factory.Mappers;
 import com.bunheng.java.learn.phoneshop.dto.BrandDto;
 import com.bunheng.java.learn.phoneshop.entity.Brand;
 
-@Mapper
+@Mapper(componentModel = "spring") // ✅ Enables Spring integration
 public interface BrandMapper {
      BrandMapper INSTANCE = Mappers.getMapper(BrandMapper.class); // ✅ Add an instance
 

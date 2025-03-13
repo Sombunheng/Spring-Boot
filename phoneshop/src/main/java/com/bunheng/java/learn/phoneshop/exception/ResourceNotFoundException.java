@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 
 public class ResourceNotFoundException extends ApiException{
     private final String resourceName;
-    private final Integer id;
+    private final Long id;
 
-    public ResourceNotFoundException(String resourceName, Integer id) {
+    public ResourceNotFoundException(String resourceName, Long id) {
         super(HttpStatus.NOT_FOUND , String.format("%s with id %d not found", resourceName , id));
         this.id = id ;
         this.resourceName = resourceName ;
@@ -17,7 +17,7 @@ public class ResourceNotFoundException extends ApiException{
         return resourceName;
     }
 
-    public Integer getResourceId() {
+    public Long getResourceId() {
         return id;
     }
     

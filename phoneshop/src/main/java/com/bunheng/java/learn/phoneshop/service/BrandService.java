@@ -9,14 +9,13 @@ import com.bunheng.java.learn.phoneshop.entity.Brand;
 
 public interface BrandService {
         Brand create(Brand brand); // Method defined in interface
-        Brand getById (Integer id);
-        Brand update(Integer id , Brand brandUpdated);
+        Brand getById (Long id);
+        Brand update(Long id , Brand brandUpdated);
         Page<Brand> getbBrands(Map <String , String> params);
 
-        // List<Brand> getbBrands(Map <String , String> params);
 
         List<Brand> filterBrand(String name);
 
-        void delete(Integer id);
+        void delete(Long id);
 
 }

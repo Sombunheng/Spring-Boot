@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bunheng.java.learn.phoneshop.dto.BrandDto;
+import com.bunheng.java.learn.phoneshop.dto.ModelDTO;
 import com.bunheng.java.learn.phoneshop.dto.PageDTO;
 import com.bunheng.java.learn.phoneshop.entity.Brand;
 import com.bunheng.java.learn.phoneshop.mapper.BrandMapper;
+import com.bunheng.java.learn.phoneshop.mapper.ModelMapper;
 import com.bunheng.java.learn.phoneshop.service.BrandService;
+import com.bunheng.java.learn.phoneshop.service.ModelService;
 
 @RestController
 @RequestMapping("brands")
@@ -29,6 +32,9 @@ public class BrandController {
 
         @Autowired
         private BrandService brandService;
+
+        @Autowired
+        private ModelService modelService ;
         
         @RequestMapping(method = RequestMethod.POST)
         public ResponseEntity<?> create(@RequestBody BrandDto brandDto){
@@ -38,13 +44,13 @@ public class BrandController {
         }
         
         @GetMapping("{id}")
-        public ResponseEntity<?> getBrandById(@PathVariable("id") Integer brandId) { //pathvariable get id from url
+        public ResponseEntity<?> getBrandById(@PathVariable("id") Long brandId) { //pathvariable get id from url
             Brand brand = brandService.getById(brandId);    // go to implement in service imp
             return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(brand));
         }
 
         @PutMapping("{id}")
-        public ResponseEntity<?> update(@PathVariable("id") Integer brandId , @RequestBody BrandDto brandDtoUpdate) { //pathvariable get id from url
+        public ResponseEntity<?> update(@PathVariable("id") Long brandId , @RequestBody BrandDto brandDtoUpdate) { //pathvariable get id from url
             Brand brand = BrandMapper.INSTANCE.toBrand(brandDtoUpdate);
             brand = brandService.update(brandId , brand);    // go to implement in service imp
             return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDto(brand));
@@ -54,11 +60,7 @@ public class BrandController {
         public ResponseEntity<?> getBrands(@RequestParam Map<String , String > params) { 
             Page <Brand> page = brandService.getbBrands(params);
             PageDTO pageDTO = new PageDTO(page);
-            // List <BrandDto> list = brandService.getbBrands(params)
-            // .stream()
-            // .map(brand -> BrandMapper.INSTANCE.toBrandDto(brand))
-            // .collect(Collectors.toList());
-
+            
             return ResponseEntity.ok(pageDTO) ;
         }
 
@@ -72,13 +74,19 @@ public class BrandController {
         }
 
         @DeleteMapping("{id}")
-        public ResponseEntity<Void> deleteBrand(@PathVariable Integer id) {
+        public ResponseEntity<Void> deleteBrand(@PathVariable Long id) {
             // Calling the delete method from the service
             brandService.delete(id);
             return ResponseEntity.noContent().build(); // Return a 204 No Content response
         }
 
-
+        @GetMapping("{id}/models")
+        public ResponseEntity<?> getBrandIdByModels(@PathVariable Long id){
+            List <ModelDTO> modelDTOs = modelService.getModelsByBrand(id)
+                                                    .stream().map(model -> ModelMapper.INSTANCE.toModelDto(model))
+                                                    .collect(Collectors.toList());
+            return ResponseEntity.ok(modelDTOs);
+        }
 
 
 }
