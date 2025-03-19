@@ -1,5 +1,6 @@
 package com.bunheng.java.learn.phoneshop.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,4 +68,13 @@ public class ProductController {
         return ResponseEntity.noContent().build(); // Return a 204 No Content response
     }
 
+    @GetMapping("/lowest-price")
+    public List<Product> getProductsWithLowestPrice() {
+        return productService.getProductsWithLowestPrice();
+    }
+
+    @GetMapping("/highest-price")
+    public List<Product> getProductsWithHighestPrice() {
+        return productService.getProductsWithHighestPrice();
+    }
 }

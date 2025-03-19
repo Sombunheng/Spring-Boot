@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 @SpringBootApplication
 @OpenAPIDefinition(
-    info = @Info(title = "Phone Shop API", version = "1.0", description = "API documentation for the Phone Shop project")
+    info = @Info(title = "Comparision price API", version = "1.0", description = "API documentation for the Phone Shop project")
 )
 public class PhoneshopApplication {
 

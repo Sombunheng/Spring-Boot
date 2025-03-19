@@ -49,7 +49,8 @@ public class ModelServiceImpl implements ModelService{
       modelFilter.setId(Long.parseLong(id));
     }
 
-    int pageLimit = 2;
+
+    int pageLimit = 20;
     if (params.containsKey(PageUtil.PAGE_LIMIT)){
         pageLimit = Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
     }

@@ -1,5 +1,6 @@
 package com.bunheng.java.learn.phoneshop.specification.product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,4 +65,6 @@ public class ProductSpecification implements Specification<Product>{
 
         return cb.and(predicates.toArray(new Predicate[0]));
     }
+
+   
 }

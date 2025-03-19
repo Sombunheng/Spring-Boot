@@ -1,6 +1,7 @@
 package com.bunheng.java.learn.phoneshop.service.Impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,19 +58,20 @@ public class ProductServiceImpl implements ProductService{
 
 
         if(params.containsKey("name")){
-        String name = params.get("name");
-        System.out.println("\n" + name + "\n");
-
-        productFilter.setName(name);
+            String name = params.get("name");
+            productFilter.setName(name);
         }
 
         if(params.containsKey("id")){
-        String id = params.get("id");
-        System.out.println("\n" + id + "\n");
+            String id = params.get("id");
 
-        productFilter.setId(Long.parseLong(id));
+            productFilter.setId(Long.parseLong(id));
         }
 
+        if(params.containsKey("modelId")){
+            String modelId = params.get("modelId");
+            productFilter.setModelId(Long.parseLong(modelId));
+        }
 
         if(params.containsKey("color_id")){
             String color = params.get("color_id");
@@ -84,6 +86,11 @@ public class ProductServiceImpl implements ProductService{
         if(params.containsKey("maxPrice")){
             String maxPrice = params.get("maxPrice");
             productFilter.setMaxPrice(new BigDecimal(maxPrice));
+        }
+
+        if(params.containsKey("salePrice")){
+            String salePrice = params.get("salePrice");
+            productFilter.setSalePrice(new BigDecimal(salePrice));
         }
 
         int pageLimit = 10;
@@ -120,5 +127,20 @@ public class ProductServiceImpl implements ProductService{
           }
           productRepository.deleteById(id);
     }
+
+    @Override
+    public List<Product> getProductsWithLowestPrice() {
+        // Call the custom method to get products with the lowest price
+        return productRepository.findProductsWithLowestPrice();
+    }
+
+    @Override
+    public List<Product> getProductsWithHighestPrice() {
+        // Call the custom method to get products with the highest price
+        return productRepository.findProductsWithHighestPrice();
+    }
+
+   
     
+   
 }

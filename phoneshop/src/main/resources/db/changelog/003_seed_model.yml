@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003_seed_model
+      author: bunheng@gmail.com
+      changes:
+        - loadData:
+            tableName: models
+            columns:
+              - column:
+                  name: name
+                  type: "string"
+              - column:
+                  name: brand_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_models_brand
+                    references: brands(brand_id)
+            file: db/data/003_models.csv
+        
+       
